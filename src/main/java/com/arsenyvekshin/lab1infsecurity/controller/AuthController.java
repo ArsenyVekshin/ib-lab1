@@ -5,9 +5,6 @@ import com.arsenyvekshin.lab1infsecurity.dto.JwtAuthenticationResponse;
 import com.arsenyvekshin.lab1infsecurity.dto.SignInRequest;
 import com.arsenyvekshin.lab1infsecurity.dto.SignUpRequest;
 import com.arsenyvekshin.lab1infsecurity.service.AuthenticationService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,19 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Tag(name = "Аутентификация", description = "Методы для аутентификации, работает через JWT-токены")
 public class AuthController {
     private final AuthenticationService authenticationService;
 
-    @Operation(summary = "Авторизация пользователя")
     @PostMapping("/login")
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
+    public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) {
         return authenticationService.signIn(request);
     }
 
-    @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
+    public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) {
         return authenticationService.signUp(request);
     }
 }
